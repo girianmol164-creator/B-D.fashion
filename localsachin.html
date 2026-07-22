@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>ShopSetu · Partner Stores in Sachin</title>
+
+    <!-- SEO -->
+    <meta name="description" content="Discover trusted local partner stores in Sachin. Browse fashion, electronics, grocery, and more on ShopSetu." />
+    <meta property="og:title" content="ShopSetu · Partner Stores in Sachin" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <style>
+        /* ============================================================
+           RESET & BASE
+        ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            background: #fafcff;
+            background: radial-gradient(ellipse at 10% 20%, rgba(249, 115, 22, 0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 90% 80%, rgba(18, 59, 122, 0.04) 0%, transparent 50%),
+                #fafcff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ============================================================
+           FLOATING DECORATIONS
+        ============================================================ */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(249, 115, 22, 0.05), transparent 70%);
+            animation: floatParticle 12s infinite alternate ease-in-out;
+        }
+        .particle-1 {
+            width: 300px;
+            height: 300px;
+            top: -5%;
+            left: -5%;
+            animation-delay: 0s;
+        }
+        .particle-2 {
+            width: 400px;
+            height: 400px;
+            bottom: -10%;
+            right: -8%;
+            background: radial-gradient(circle, rgba(18, 59, 122, 0.04), transparent 70%);
+            animation-delay: 3s;
+        }
+        .particle-3 {
+            width: 200px;
+            height: 200px;
+            top: 40%;
+            right: 2%;
+            background: radial-gradient(circle, rgba(249, 115, 22, 0.03), transparent 70%);
+            animation-delay: 6s;
+        }
+        .particle-4 {
+            width: 250px;
+            height: 250px;
+            bottom: 30%;
+            left: -2%;
+            background: radial-gradient(circle, rgba(18, 59, 122, 0.03), transparent 70%);
+            animation-delay: 2s;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                transform: translate(20px, -30px) scale(1.1);
+            }
+        }
+
+        .gps-float {
+            position: fixed;
+            pointer-events: none;
+            z-index: 0;
+            font-size: 1.2rem;
+            color: rgba(249, 115, 22, 0.06);
+            animation: gpsDrift 7s infinite alternate ease-in-out;
+        }
+        .gps-1 {
+            top: 15%;
+            left: 8%;
+            animation-delay: 0s;
+        }
+        .gps-2 {
+            bottom: 20%;
+            right: 6%;
+            animation-delay: 2.5s;
+            color: rgba(18, 59, 122, 0.06);
+        }
+        .gps-3 {
+            top: 55%;
+            right: 12%;
+            animation-delay: 4s;
+        }
+        .gps-4 {
+            bottom: 45%;
+            left: 4%;
+            animation-delay: 1.5s;
+            color: rgba(18, 59, 122, 0.06);
+        }
+
+        @keyframes gpsDrift {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            100% {
+                transform: translate(-15px, -25px) rotate(8deg);
+            }
+        }
+
+        /* ============================================================
+           MAIN WRAPPER
+        ============================================================ */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ============================================================
+           NAVIGATION
+        ============================================================ */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: #64748b;
+            cursor: pointer;
+            padding: 0.3rem 0.6rem;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+        .back-btn:hover {
+            background: rgba(0, 0, 0, 0.04);
+            color: #1e293b;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 2rem;
+            height: 2rem;
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2);
+        }
+        .logo-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #1e293b 40%, #f97316 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .nav-icon {
+            font-size: 1.1rem;
+            color: #64748b;
+            cursor: pointer;
+            padding: 0.4rem;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+        .nav-icon:hover {
+            background: rgba(0, 0, 0, 0.04);
+            color: #1e293b;
+        }
+
+        .area-badge {
+            background: rgba(249, 115, 22, 0.08);
+            color: #f97316;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            border: 1px solid rgba(249, 115, 22, 0.1);
+        }
+        .area-badge i {
+            font-size: 0.7rem;
+        }
+
+        /* ============================================================
+           HERO SECTION
+        ============================================================ */
+        .hero {
+            padding: 1.5rem 0 0.8rem;
+            text-align: center;
+        }
+
+        .hero .area-label {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+        .hero .area-label i {
+            color: #f97316;
+            margin-right: 0.3rem;
+        }
+
+        .hero h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.6rem);
+            font-weight: 900;
+            color: #1e293b;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-top: 0.1rem;
+        }
+        .hero h1 span {
+            background: linear-gradient(135deg, #f97316, #fb923c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p {
+            color: #64748b;
+            font-size: clamp(0.9rem, 1.8vw, 1.05rem);
+            max-width: 480px;
+            margin: 0.2rem auto 0;
+            font-weight: 400;
+        }
+
+        /* ============================================================
+           SEARCH + FILTERS
+        ============================================================ */
+        .search-filter-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            justify-content: center;
+            margin: 1.2rem 0 0.8rem;
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .search-wrap {
+            flex: 1;
+            min-width: 200px;
+            position: relative;
+        }
+        .search-wrap .icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        .search-wrap input {
+            width: 100%;
+            padding: 0.7rem 1rem 0.7rem 2.8rem;
+            border: 2px solid rgba(226, 232, 240, 0.6);
+            border-radius: 3rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            outline: none;
+            transition: all 0.25s ease;
+            color: #1e293b;
+            font-family: 'Inter', sans-serif;
+        }
+        .search-wrap input:focus {
+            border-color: #f97316;
+            box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.08);
+            background: #fff;
+            transform: translateY(-2px);
+        }
+        .search-wrap input::placeholder {
+            color: #a8b4c2;
+            font-weight: 400;
+        }
+
+        /* ============================================================
+           CATEGORY FILTERS (glass chips)
+        ============================================================ */
+        .category-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin: 0.8rem 0 1.5rem;
+        }
+
+        .cat-chip {
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .cat-chip i {
+            font-size: 0.7rem;
+            color: #94a3b8;
+        }
+        .cat-chip:hover {
+            background: rgba(255, 255, 255, 0.8);
+            border-color: #f97316;
+            color: #1e293b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+        }
+        .cat-chip.active {
+            background: #f97316;
+            border-color: #f97316;
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(249, 115, 22, 0.15);
+        }
+        .cat-chip.active i {
+            color: #fff;
+        }
+
+        /* ============================================================
+           STORE GRID
+        ============================================================ */
+        .store-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        /* ============================================================
+           STORE CARD
+        ============================================================ */
+        .store-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1.8rem;
+            padding: 1.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            transform: translateZ(0);
+        }
+
+        .store-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1.8rem;
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.03), rgba(18, 59, 122, 0.02));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .store-card:hover::before {
+            opacity: 1;
+        }
+
+        .store-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 20px 50px -10px rgba(249, 115, 22, 0.12), 0 8px 24px rgba(0, 0, 0, 0.02);
+            border-color: rgba(249, 115, 22, 0.15);
+        }
+
+        .store-card:active {
+            transform: scale(0.97);
+            transition-duration: 0.1s;
+        }
+
+        /* Store Banner */
+        .store-banner {
+            width: 100%;
+            height: 110px;
+            border-radius: 1.2rem;
+            background: linear-gradient(135deg, #e8edf2, #f1f5f9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 0.8rem;
+        }
+        .store-banner .banner-text {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #94a3b8;
+            opacity: 0.3;
+            font-family: 'Poppins', sans-serif;
+        }
+        .store-banner .verified-badge {
+            position: absolute;
+            top: 0.6rem;
+            right: 0.6rem;
+            background: rgba(34, 197, 94, 0.12);
+            color: #22c55e;
+            padding: 0.15rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.55rem;
+            font-weight: 600;
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+            border: 1px solid rgba(34, 197, 94, 0.1);
+        }
+        .store-banner .verified-badge i {
+            font-size: 0.4rem;
+        }
+
+        /* Store Logo */
+        .store-logo {
+            width: 3.2rem;
+            height: 3.2rem;
+            border-radius: 1rem;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #f97316;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            margin-top: -1.8rem;
+            margin-bottom: 0.4rem;
+            position: relative;
+            z-index: 2;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .store-info {
+            flex: 1;
+        }
+
+        .store-info .name {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #1e293b;
+            letter-spacing: -0.01em;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .store-info .name .category-tag {
+            font-size: 0.55rem;
+            font-weight: 600;
+            color: #f97316;
+            background: rgba(249, 115, 22, 0.08);
+            padding: 0.05rem 0.5rem;
+            border-radius: 12px;
+        }
+        .store-info .details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem 0.8rem;
+            margin-top: 0.2rem;
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+        .store-info .details span {
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+        }
+        .store-info .details i {
+            font-size: 0.7rem;
+            color: #94a3b8;
+        }
+        .store-info .details .rating {
+            color: #f59e0b;
+            font-weight: 600;
+        }
+        .store-info .details .rating i {
+            color: #f59e0b;
+        }
+
+        .store-info .status {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-top: 0.3rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .store-info .status .open {
+            color: #22c55e;
+        }
+        .store-info .status .closed {
+            color: #ef4444;
+        }
+        .store-info .status .open i,
+        .store-info .status .closed i {
+            font-size: 0.5rem;
+        }
+
+        .visit-btn {
+            margin-top: 0.8rem;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            border: none;
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            width: fit-content;
+            box-shadow: 0 4px 16px rgba(249, 115, 22, 0.15);
+            font-family: 'Inter', sans-serif;
+        }
+        .visit-btn:hover {
+            transform: translateX(4px);
+            box-shadow: 0 6px 24px rgba(249, 115, 22, 0.25);
+        }
+
+        /* ============================================================
+           RESPONSIVE
+        ============================================================ */
+        @media (max-width: 820px) {
+            .container {
+                padding: 0 1.2rem 2rem;
+            }
+            .navbar {
+                padding: 0.8rem 0;
+            }
+            .store-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 0.8rem;
+            }
+            .area-badge {
+                font-size: 0.7rem;
+                padding: 0.2rem 0.7rem;
+            }
+            .logo-text {
+                font-size: 1rem;
+            }
+            .logo-icon {
+                width: 1.6rem;
+                height: 1.6rem;
+                font-size: 0.7rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 0.8rem 1.5rem;
+            }
+            .navbar {
+                padding: 0.6rem 0;
+            }
+            .back-btn {
+                font-size: 1rem;
+                padding: 0.2rem 0.4rem;
+            }
+            .logo-text {
+                font-size: 0.9rem;
+            }
+            .logo-icon {
+                width: 1.4rem;
+                height: 1.4rem;
+                font-size: 0.6rem;
+            }
+            .area-badge {
+                font-size: 0.6rem;
+                padding: 0.15rem 0.5rem;
+            }
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+            .hero p {
+                font-size: 0.8rem;
+            }
+            .search-wrap input {
+                padding: 0.6rem 0.8rem 0.6rem 2.4rem;
+                font-size: 0.85rem;
+            }
+            .search-wrap .icon {
+                left: 0.8rem;
+                font-size: 0.8rem;
+            }
+            .category-filters {
+                gap: 0.3rem;
+            }
+            .cat-chip {
+                padding: 0.3rem 0.8rem;
+                font-size: 0.65rem;
+            }
+            .store-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.6rem;
+            }
+            .store-card {
+                padding: 0.8rem;
+                border-radius: 1.2rem;
+            }
+            .store-banner {
+                height: 70px;
+                border-radius: 0.8rem;
+            }
+            .store-logo {
+                width: 2.4rem;
+                height: 2.4rem;
+                font-size: 1rem;
+                margin-top: -1.2rem;
+                border-radius: 0.7rem;
+            }
+            .store-info .name {
+                font-size: 0.85rem;
+            }
+            .store-info .details {
+                font-size: 0.65rem;
+                gap: 0.2rem 0.4rem;
+            }
+            .store-info .status {
+                font-size: 0.6rem;
+            }
+            .visit-btn {
+                font-size: 0.7rem;
+                padding: 0.3rem 0.8rem;
+            }
+            .particle,
+            .gps-float {
+                display: none;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .store-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.5rem;
+            }
+            .store-card {
+                padding: 0.6rem;
+                border-radius: 1rem;
+            }
+            .store-banner {
+                height: 55px;
+            }
+            .store-logo {
+                width: 2rem;
+                height: 2rem;
+                font-size: 0.8rem;
+                margin-top: -1rem;
+            }
+            .store-info .name {
+                font-size: 0.75rem;
+            }
+            .store-info .details {
+                font-size: 0.55rem;
+            }
+            .visit-btn {
+                font-size: 0.6rem;
+                padding: 0.2rem 0.6rem;
+            }
+            .cat-chip {
+                font-size: 0.55rem;
+                padding: 0.2rem 0.6rem;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .store-grid {
+                grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+                gap: 1.5rem;
+            }
+            .store-card {
+                padding: 1.5rem;
+                border-radius: 2rem;
+            }
+            .store-banner {
+                height: 130px;
+            }
+        }
+
+        /* ============================================================
+           DARK MODE
+        ============================================================ */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #0f172a;
+                background: radial-gradient(ellipse at 10% 20%, rgba(249, 115, 22, 0.06) 0%, transparent 50%),
+                    radial-gradient(ellipse at 90% 80%, rgba(18, 59, 122, 0.06) 0%, transparent 50%),
+                    #0f172a;
+            }
+
+            .navbar {
+                background: rgba(15, 23, 42, 0.6);
+                border-bottom-color: rgba(51, 65, 85, 0.2);
+            }
+            .back-btn {
+                color: #94a3b8;
+            }
+            .back-btn:hover {
+                color: #f1f5f9;
+                background: rgba(255, 255, 255, 0.04);
+            }
+            .logo-text {
+                background: linear-gradient(135deg, #f1f5f9 40%, #f97316 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            .nav-icon {
+                color: #94a3b8;
+            }
+            .nav-icon:hover {
+                color: #f1f5f9;
+                background: rgba(255, 255, 255, 0.04);
+            }
+            .area-badge {
+                background: rgba(249, 115, 22, 0.12);
+                color: #fb923c;
+                border-color: rgba(249, 115, 22, 0.15);
+            }
+
+            .hero h1 {
+                color: #f1f5f9;
+            }
+            .hero p {
+                color: #94a3b8;
+            }
+            .hero .area-label {
+                color: #64748b;
+            }
+
+            .search-wrap input {
+                background: rgba(15, 23, 42, 0.4);
+                border-color: #334155;
+                color: #f1f5f9;
+            }
+            .search-wrap input:focus {
+                background: #1e293b;
+                border-color: #f97316;
+                box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.12);
+            }
+            .search-wrap input::placeholder {
+                color: #64748b;
+            }
+
+            .cat-chip {
+                background: rgba(30, 41, 59, 0.3);
+                border-color: #334155;
+                color: #94a3b8;
+            }
+            .cat-chip:hover {
+                background: rgba(30, 41, 59, 0.6);
+                border-color: #f97316;
+                color: #f1f5f9;
+            }
+            .cat-chip.active {
+                background: #f97316;
+                border-color: #f97316;
+                color: #fff;
+            }
+
+            .store-card {
+                background: rgba(30, 41, 59, 0.4);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                border-color: rgba(51, 65, 85, 0.2);
+            }
+            .store-card:hover {
+                border-color: rgba(249, 115, 22, 0.15);
+                box-shadow: 0 20px 50px -10px rgba(249, 115, 22, 0.06);
+            }
+            .store-banner {
+                background: linear-gradient(135deg, #1e293b, #2d3748);
+            }
+            .store-banner .banner-text {
+                color: #475569;
+            }
+            .store-logo {
+                background: #1e293b;
+                border-color: #334155;
+            }
+            .store-info .name {
+                color: #f1f5f9;
+            }
+            .store-info .name .category-tag {
+                color: #fb923c;
+                background: rgba(249, 115, 22, 0.12);
+            }
+            .store-info .details {
+                color: #94a3b8;
+            }
+            .store-info .details i {
+                color: #64748b;
+            }
+            .store-info .status .open {
+                color: #4ade80;
+            }
+            .store-info .status .closed {
+                color: #f87171;
+            }
+            .store-banner .verified-badge {
+                background: rgba(34, 197, 94, 0.12);
+                color: #4ade80;
+                border-color: rgba(34, 197, 94, 0.1);
+            }
+
+            .particle {
+                opacity: 0.3;
+            }
+            .gps-float {
+                opacity: 0.3;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+            .store-card:active {
+                transform: scale(0.98);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+    FLOATING DECORATIONS
+    ============================================================ -->
+    <div class="particle particle-1"></div>
+    <div class="particle particle-2"></div>
+    <div class="particle particle-3"></div>
+    <div class="particle particle-4"></div>
+
+    <div class="gps-float gps-1"><i class="fas fa-map-pin"></i></div>
+    <div class="gps-float gps-2"><i class="fas fa-location-dot"></i></div>
+    <div class="gps-float gps-3"><i class="fas fa-map-pin"></i></div>
+    <div class="gps-float gps-4"><i class="fas fa-location-dot"></i></div>
+
+    <!-- ============================================================
+    MAIN CONTAINER
+    ============================================================ -->
+    <div class="container">
+
+        <!-- NAVIGATION -->
+        <nav class="navbar">
+            <div class="nav-left">
+                <button class="back-btn" aria-label="Go back"><i class="fas fa-arrow-left"></i></button>
+                <a href="#" class="logo">
+                   
+                    <span class="logo-text"><img src="setulogo.png"width="120"height="120"></span>
+                </a>
+                <span class="area-badge"><i class="fas fa-map-pin"></i> Sachin</span>
+            </div>
+            <div class="nav-right">
+                <span class="nav-icon"><i class="fas fa-search"></i></span>
+                <span class="nav-icon"><i class="fas fa-user-circle"></i></span>
+            </div>
+        </nav>
+
+        <!-- HERO -->
+        <section class="hero">
+            <p class="area-label"><i class="fas fa-location-dot"></i> Partner Stores in</p>
+            <h1>Sachin <span>Area</span></h1>
+            <p>Browse trusted local businesses delivering through ShopSetu.</p>
+
+            <!-- Search -->
+            <div class="search-filter-wrap">
+                <div class="search-wrap">
+                    <span class="icon"><i class="fas fa-search"></i></span>
+                    <input type="text" id="storeSearch" placeholder="Search shops..." autocomplete="off" />
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORY FILTERS -->
+        <div class="category-filters" id="categoryFilters">
+            <button class="cat-chip active" data-cat="all"><i class="fas fa-th-large"></i> All</button>
+            <button class="cat-chip" data-cat="fashion"><i class="fas fa-tshirt"></i> Fashion</button>
+            <button class="cat-chip" data-cat="electronics"><i class="fas fa-laptop"></i> Electronics</button>
+            <button class="cat-chip" data-cat="mobile"><i class="fas fa-mobile-alt"></i> Mobile</button>
+            <button class="cat-chip" data-cat="grocery"><i class="fas fa-apple-alt"></i> Grocery</button>
+            <button class="cat-chip" data-cat="restaurant"><i class="fas fa-utensils"></i> Restaurant</button>
+            <button class="cat-chip" data-cat="footwear"><i class="fas fa-shoe-prints"></i> Footwear</button>
+            <button class="cat-chip" data-cat="pharmacy"><i class="fas fa-pills"></i> Pharmacy</button>
+            <button class="cat-chip" data-cat="jewellery"><i class="fas fa-gem"></i> Jewellery</button>
+            <button class="cat-chip" data-cat="beauty"><i class="fas fa-spa"></i> Beauty</button>
+            <button class="cat-chip" data-cat="services"><i class="fas fa-concierge-bell"></i> Services</button>
+        </div>
+
+        <!-- STORE GRID -->
+        <div class="store-grid" id="storeGrid">
+            <!-- Rendered by JavaScript -->
+        </div>
+
+    </div>
+
+    <!-- ============================================================
+    SCRIPT: Store Data + Search + Filters
+    ============================================================ -->
+    <script>
+        // ============================================================
+        // STORE DATA — Add unlimited partner stores here
+        // ============================================================
+        const stores = [{
+            name: 'Ramdev Fashion',
+            category: 'fashion',
+            rating: 4.8,
+            area: 'Sachin',
+            open: true,
+            delivery: true,
+            website: 'https://www.flipkart.com/',
+            logo: 'RF',
+            banner: '👕'
+        }, {
+            name: 'Sachin Electronics',
+            category: 'electronics',
+            rating: 4.6,
+            area: 'Sachin',
+            open: true,
+            delivery: true,
+            website: 'https://sachinelectronics.com',
+            logo: 'SE',
+            banner: '💻'
+        }, {
+            name: 'Fresh Mart Grocery',
+            category: 'grocery',
+            rating: 4.9,
+            area: 'Sachin',
+            open: true,
+            delivery: true,
+            website: 'https://freshmart.com',
+            logo: 'FM',
+            banner: '🍎'
+        }, {
+            name: 'Tasty Bites Restaurant',
+            category: 'restaurant',
+            rating: 4.7,
+            area: 'Sachin',
+            open: false,
+            delivery: true,
+            website: 'https://tastybites.com',
+            logo: 'TB',
+            banner: '🍕'
+        }, {
+            name: 'Step Up Footwear',
+            category: 'footwear',
+            rating: 4.5,
+            area: 'Sachin',
+            open: true,
+            delivery: true,
+            website: 'https://stepupfootwear.com',
+            logo: 'SU',
+            banner: '👟'
+        }, {
+            name: 'HealthPlus Pharmacy',
+            category: 'pharmacy',
+            rating: 4.8,
+            area: 'Sachin',
+            open: true,
+            delivery: true,
+            website: 'https://healthplus.com',
+            logo: 'HP',
+            banner: '💊'
+        }, {
+            name: 'Sachin Mobile Point',
+            category: 'mobile',
+            rating: 4.4,
+            area: 'Sachin',
+            open: true,
+            delivery: false,
+            website: 'https://sachinmobile.com',
+            logo: 'SM',
+            banner: '📱'
+        }, {
+            name: 'Golden Jewellers',
+            category: 'jewellery',
+            rating: 4.9,
+            area: 'Sachin',
+            open: true,
+            delivery: false,
+            website: 'https://goldenjewellers.com',
+            logo: 'GJ',
+            banner: '💎'
+        }, {
+            name: 'Glow Beauty Studio',
+            category: 'beauty',
+            rating: 4.6,
+            area: 'Sachin',
+            open: true,
+            delivery: true,
+            website: 'https://glowbeauty.com',
+            logo: 'GB',
+            banner: '💄'
+        }, {
+            name: 'Quick Serve Services',
+            category: 'services',
+            rating: 4.3,
+            area: 'Sachin',
+            open: true,
+            delivery: true,
+            website: 'https://quickserve.com',
+            logo: 'QS',
+            banner: '🔧'
+        }, {
+            name: 'Fashion Hub Sachin',
+            category: 'fashion',
+            rating: 4.7,
+            area: 'Sachin',
+            open: true,
+            delivery: true,
+            website: 'https://fashionhub.com',
+            logo: 'FH',
+            banner: '👗'
+        }, {
+            name: 'Sachin Grocery Store',
+            category: 'grocery',
+            rating: 4.5,
+            area: 'Sachin',
+            open: true,
+            delivery: true,
+            website: 'https://sachingrocery.com',
+            logo: 'SG',
+            banner: '🥦'
+        }];
+
+        // ============================================================
+        // RENDER STORES
+        // ============================================================
+        const grid = document.getElementById('storeGrid');
+        const searchInput = document.getElementById('storeSearch');
+        const categoryChips = document.querySelectorAll('.cat-chip');
+
+        let currentCategory = 'all';
+        let currentSearch = '';
+
+        function renderStores() {
+            const filtered = stores.filter(store => {
+                const matchCategory = currentCategory === 'all' || store.category === currentCategory;
+                const matchSearch = store.name.toLowerCase().includes(currentSearch.toLowerCase()) ||
+                    store.category.toLowerCase().includes(currentSearch.toLowerCase());
+                return matchCategory && matchSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column:1/-1; text-align:center; padding:3rem 1rem; color:#94a3b8; font-size:1.1rem;">
+                        <i class="fas fa-store" style="font-size:2.5rem;display:block;margin-bottom:0.5rem;color:#f97316;opacity:0.2;"></i>
+                        No stores found. Try a different search or category.
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(store => `
+                <a href="${store.website}" class="store-card" target="_blank" data-category="${store.category}">
+                    <div class="store-banner">
+                        <span class="banner-text">${store.banner}</span>
+                        <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span>
+                    </div>
+                    <div class="store-logo">${store.logo}</div>
+                    <div class="store-info">
+                        <div class="name">
+                            ${store.name}
+                            <span class="category-tag">${store.category}</span>
+                        </div>
+                        <div class="details">
+                            <span class="rating"><i class="fas fa-star"></i> ${store.rating}</span>
+                            <span><i class="fas fa-map-pin"></i> ${store.area}</span>
+                            ${store.delivery ? '<span><i class="fas fa-truck" style="color:#22c55e;"></i> Delivery</span>' : ''}
+                        </div>
+                        <div class="status">
+                            ${store.open 
+                                ? '<span class="open"><i class="fas fa-circle"></i> Open Now</span>' 
+                                : '<span class="closed"><i class="fas fa-circle"></i> Closed</span>'}
+                        </div>
+                    </div>
+                    <button class="visit-btn" onclick="event.stopPropagation(); window.open('${store.website}', '_blank');">
+                        Visit Store <i class="fas fa-arrow-right"></i>
+                    </button>
+                </a>
+            `).join('');
+
+            // Attach click handlers for cards (already using <a> tag)
+        }
+
+        // ============================================================
+        // SEARCH
+        // ============================================================
+        searchInput.addEventListener('input', function() {
+            currentSearch = this.value;
+            renderStores();
+        });
+
+        // Search icon focuses input
+        document.querySelector('.nav-icon:first-child').addEventListener('click', function() {
+            searchInput.focus();
+        });
+
+        // ============================================================
+        // CATEGORY FILTERS
+        // ============================================================
+        categoryChips.forEach(chip => {
+            chip.addEventListener('click', function() {
+                categoryChips.forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                currentCategory = this.dataset.cat;
+                renderStores();
+            });
+        });
+
+        // ============================================================
+        // BACK BUTTON
+        // ============================================================
+        document.querySelector('.back-btn').addEventListener('click', function() {
+            alert('🔙 Go back to area selection');
+            // history.back() or router.back()
+        });
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        renderStores();
+
+        console.log('🚀 ShopSetu Partner Stores ready.');
+        console.log(`🏪 ${stores.length} stores loaded in Sachin.`);
+    </script>
+
+</body>
+</html>
