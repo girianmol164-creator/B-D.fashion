@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>ShopSetu · 3D Area Selection</title>
+
+    <!-- SEO -->
+    <meta name="description" content="Select your delivery area and experience premium hyperlocal delivery with ShopSetu." />
+    <meta property="og:title" content="ShopSetu – 3D Area Selection" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <style>
+        /* ============================================================
+           RESET & BASE
+        ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            background: #fafcff;
+            background: radial-gradient(ellipse at 10% 20%, rgba(249, 115, 22, 0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 90% 80%, rgba(18, 59, 122, 0.04) 0%, transparent 50%),
+                #fafcff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ============================================================
+           FLOATING DECORATIONS
+        ============================================================ */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(249, 115, 22, 0.06), transparent 70%);
+            animation: floatParticle 12s infinite alternate ease-in-out;
+        }
+        .particle-1 {
+            width: 300px;
+            height: 300px;
+            top: -5%;
+            left: -5%;
+            animation-delay: 0s;
+        }
+        .particle-2 {
+            width: 400px;
+            height: 400px;
+            bottom: -10%;
+            right: -8%;
+            background: radial-gradient(circle, rgba(18, 59, 122, 0.05), transparent 70%);
+            animation-delay: 3s;
+        }
+        .particle-3 {
+            width: 200px;
+            height: 200px;
+            top: 40%;
+            right: 2%;
+            background: radial-gradient(circle, rgba(249, 115, 22, 0.04), transparent 70%);
+            animation-delay: 6s;
+        }
+        .particle-4 {
+            width: 250px;
+            height: 250px;
+            bottom: 30%;
+            left: -2%;
+            background: radial-gradient(circle, rgba(18, 59, 122, 0.04), transparent 70%);
+            animation-delay: 2s;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                transform: translate(20px, -30px) scale(1.1);
+            }
+        }
+
+        .gps-float {
+            position: fixed;
+            pointer-events: none;
+            z-index: 0;
+            font-size: 1.2rem;
+            color: rgba(249, 115, 22, 0.08);
+            animation: gpsDrift 7s infinite alternate ease-in-out;
+        }
+        .gps-1 {
+            top: 15%;
+            left: 8%;
+            animation-delay: 0s;
+        }
+        .gps-2 {
+            bottom: 20%;
+            right: 6%;
+            animation-delay: 2.5s;
+            color: rgba(18, 59, 122, 0.08);
+        }
+        .gps-3 {
+            top: 55%;
+            right: 12%;
+            animation-delay: 4s;
+        }
+        .gps-4 {
+            bottom: 45%;
+            left: 4%;
+            animation-delay: 1.5s;
+            color: rgba(18, 59, 122, 0.08);
+        }
+
+        @keyframes gpsDrift {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            100% {
+                transform: translate(-15px, -25px) rotate(8deg);
+            }
+        }
+
+        /* ============================================================
+           MAIN WRAPPER
+        ============================================================ */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ============================================================
+           NAVIGATION
+        ============================================================ */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 0.5rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 2.2rem;
+            height: 2.2rem;
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            border-radius: 0.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1rem;
+            box-shadow: 0 4px 16px rgba(249, 115, 22, 0.2);
+            transform: rotate(-2deg);
+            transition: transform 0.3s ease;
+        }
+        .logo:hover .logo-icon {
+            transform: rotate(2deg) scale(1.02);
+        }
+        .logo-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #1e293b 40%, #f97316 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .nav-icon {
+            font-size: 1.2rem;
+            color: #64748b;
+            cursor: pointer;
+            padding: 0.4rem;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+        .nav-icon:hover {
+            background: rgba(0, 0, 0, 0.04);
+            color: #1e293b;
+        }
+
+        /* ============================================================
+           HERO SECTION
+        ============================================================ */
+        .hero {
+            text-align: center;
+            padding: 1.5rem 0 0.5rem;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(2.4rem, 7vw, 4.8rem);
+            font-weight: 900;
+            color: #1e293b;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+        }
+        .hero h1 span {
+            background: linear-gradient(135deg, #f97316, #fb923c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p {
+            color: #64748b;
+            font-size: clamp(0.95rem, 2vw, 1.15rem);
+            max-width: 520px;
+            margin: 0.4rem auto 1.2rem;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        /* ============================================================
+           3D CITY ILLUSTRATION
+        ============================================================ */
+        .city-3d {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin: 0.8rem auto 1.2rem;
+            perspective: 800px;
+            padding: 0.5rem;
+        }
+
+        .city-item {
+            font-size: clamp(2.8rem, 8vw, 5.5rem);
+            color: #1e293b;
+            filter: drop-shadow(0 12px 30px rgba(0, 0, 0, 0.04));
+            animation: cityFloat 4s infinite alternate ease-in-out;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+        .city-item i {
+            background: linear-gradient(145deg, #1e293b, #475569);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .city-item .orange {
+            background: linear-gradient(145deg, #f97316, #fb923c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .city-item .blue {
+            background: linear-gradient(145deg, #123B7A, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .city-item:nth-child(1) {
+            animation-delay: 0s;
+            transform: translateY(0px) rotate(-2deg);
+        }
+        .city-item:nth-child(2) {
+            animation-delay: 0.8s;
+            transform: translateY(-8px) rotate(1deg);
+            font-size: clamp(2.2rem, 6vw, 4.2rem);
+        }
+        .city-item:nth-child(3) {
+            animation-delay: 1.6s;
+            transform: translateY(4px) rotate(3deg);
+            font-size: clamp(2.6rem, 7vw, 5rem);
+        }
+        .city-item:nth-child(4) {
+            animation-delay: 0.4s;
+            transform: translateY(-4px) rotate(-1deg);
+            font-size: clamp(2rem, 5vw, 3.8rem);
+        }
+        .city-item:nth-child(5) {
+            animation-delay: 2s;
+            transform: translateY(6px) rotate(-3deg);
+        }
+        .city-item:nth-child(6) {
+            animation-delay: 1.2s;
+            transform: translateY(-6px) rotate(2deg);
+            font-size: clamp(2.4rem, 6.5vw, 4.6rem);
+        }
+
+        @keyframes cityFloat {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-14px) rotate(2deg);
+            }
+        }
+
+        /* ============================================================
+           SEARCH BAR
+        ============================================================ */
+        .search-wrap {
+            max-width: 480px;
+            margin: 0 auto 1.5rem;
+            position: relative;
+        }
+        .search-wrap .icon {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 1rem;
+        }
+        .search-wrap input {
+            width: 100%;
+            padding: 0.9rem 1.2rem 0.9rem 3.2rem;
+            border: 2px solid rgba(226, 232, 240, 0.6);
+            border-radius: 3rem;
+            font-size: 1rem;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            color: #1e293b;
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+        }
+        .search-wrap input:focus {
+            border-color: #f97316;
+            box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.08), 0 8px 24px rgba(0, 0, 0, 0.04);
+            background: #fff;
+            transform: translateY(-2px);
+        }
+        .search-wrap input::placeholder {
+            color: #a8b4c2;
+            font-weight: 400;
+        }
+
+        /* ============================================================
+           AREA GRID
+        ============================================================ */
+        .area-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        /* ============================================================
+           AREA CARD - with 3D location illustration + PIN
+        ============================================================ */
+        .area-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1.8rem;
+            padding: 1.5rem 1.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            min-height: 80px;
+            transform: translateZ(0);
+        }
+
+        .area-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1.8rem;
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.03), rgba(18, 59, 122, 0.02));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .area-card:hover::before {
+            opacity: 1;
+        }
+
+        .area-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 20px 50px -10px rgba(249, 115, 22, 0.15), 0 8px 24px rgba(0, 0, 0, 0.02);
+            border-color: rgba(249, 115, 22, 0.15);
+        }
+
+        .area-card:active {
+            transform: scale(0.96);
+            transition-duration: 0.1s;
+        }
+
+        .card-left {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 3D Location Illustration */
+        .location-3d {
+            font-size: 2rem;
+            position: relative;
+            flex-shrink: 0;
+            width: 2.8rem;
+            height: 2.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform-style: preserve-3d;
+            perspective: 400px;
+        }
+
+        .location-3d .loc-icon {
+            font-size: 2rem;
+            filter: drop-shadow(0 6px 16px rgba(249, 115, 22, 0.15));
+            animation: locFloat 3.4s infinite alternate ease-in-out;
+            transform: rotateY(-5deg) rotateX(4deg);
+            transition: transform 0.4s ease;
+        }
+
+        .location-3d .loc-icon i {
+            background: linear-gradient(145deg, #f97316, #fb923c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 20px rgba(249, 115, 22, 0.08);
+        }
+
+        /* Different colors for different areas */
+        .area-card[data-slug="sachin"] .loc-icon i {
+            background: linear-gradient(145deg, #f97316, #ea580c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .area-card[data-slug="navsari"] .loc-icon i {
+            background: linear-gradient(145deg, #123B7A, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .area-card[data-slug="surat"] .loc-icon i {
+            background: linear-gradient(145deg, #8b5cf6, #6d28d9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .area-card[data-slug="bardoli"] .loc-icon i {
+            background: linear-gradient(145deg, #059669, #047857);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .area-card[data-slug="adajan"] .loc-icon i {
+            background: linear-gradient(145deg, #dc2626, #b91c1c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .area-card[data-slug="vesu"] .loc-icon i {
+            background: linear-gradient(145deg, #7c3aed, #6d28d9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Pulse ring around location */
+        .loc-pulse {
+            position: absolute;
+            width: 3.2rem;
+            height: 3.2rem;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(249, 115, 22, 0.08), transparent 70%);
+            animation: locPulse 2.4s infinite ease-out;
+        }
+
+        .area-card[data-slug="navsari"] .loc-pulse {
+            background: radial-gradient(circle, rgba(18, 59, 122, 0.08), transparent 70%);
+        }
+        .area-card[data-slug="surat"] .loc-pulse {
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.08), transparent 70%);
+        }
+        .area-card[data-slug="bardoli"] .loc-pulse {
+            background: radial-gradient(circle, rgba(5, 150, 105, 0.08), transparent 70%);
+        }
+        .area-card[data-slug="adajan"] .loc-pulse {
+            background: radial-gradient(circle, rgba(220, 38, 38, 0.08), transparent 70%);
+        }
+        .area-card[data-slug="vesu"] .loc-pulse {
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.08), transparent 70%);
+        }
+
+        @keyframes locPulse {
+            0% {
+                transform: scale(0.6);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.8);
+                opacity: 0;
+            }
+        }
+
+        @keyframes locFloat {
+            0% {
+                transform: translateY(0px) rotateY(-5deg) rotateX(4deg);
+            }
+            100% {
+                transform: translateY(-8px) rotateY(5deg) rotateX(-2deg);
+            }
+        }
+
+        .area-card:hover .location-3d .loc-icon {
+            animation: locFloatHover 0.8s infinite alternate ease-in-out;
+        }
+
+        @keyframes locFloatHover {
+            0% {
+                transform: translateY(0px) rotateY(-8deg) rotateX(6deg) scale(1);
+            }
+            100% {
+                transform: translateY(-12px) rotateY(8deg) rotateX(-4deg) scale(1.05);
+            }
+        }
+
+        .card-info .name {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #1e293b;
+            letter-spacing: -0.01em;
+        }
+
+        .card-info .pin-code {
+            font-size: 0.65rem;
+            font-weight: 500;
+            color: #94a3b8;
+            font-family: 'Manrope', monospace;
+            letter-spacing: 0.04em;
+            margin-top: 0.05rem;
+        }
+
+        .card-info .badge {
+            font-size: 0.55rem;
+            font-weight: 600;
+            color: #f97316;
+            background: rgba(249, 115, 22, 0.08);
+            padding: 0.05rem 0.5rem;
+            border-radius: 20px;
+            display: inline-block;
+            width: fit-content;
+            letter-spacing: 0.02em;
+            backdrop-filter: blur(4px);
+            margin-top: 0.05rem;
+        }
+        .card-info .badge i {
+            font-size: 0.35rem;
+            margin-right: 3px;
+            color: #22c55e;
+        }
+
+        .card-arrow {
+            font-size: 1rem;
+            color: #94a3b8;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            z-index: 1;
+            flex-shrink: 0;
+        }
+
+        .area-card:hover .card-arrow {
+            transform: translateX(6px) scale(1.05);
+            color: #f97316;
+        }
+
+        /* ============================================================
+           RESPONSIVE
+        ============================================================ */
+        @media (max-width: 820px) {
+            .container {
+                padding: 0 1.2rem 2rem;
+            }
+            .navbar {
+                padding: 0.8rem 0;
+            }
+            .area-grid {
+                grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+                gap: 0.8rem;
+            }
+            .area-card {
+                padding: 1.2rem 1rem;
+                min-height: 68px;
+                border-radius: 1.4rem;
+            }
+            .location-3d {
+                font-size: 1.5rem;
+                width: 2.2rem;
+                height: 2.2rem;
+            }
+            .loc-pulse {
+                width: 2.6rem;
+                height: 2.6rem;
+            }
+            .location-3d .loc-icon {
+                font-size: 1.5rem;
+            }
+            .card-info .name {
+                font-size: 0.95rem;
+            }
+            .city-item {
+                font-size: clamp(2rem, 10vw, 3.5rem);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 0.8rem 1.5rem;
+            }
+            .navbar {
+                padding: 0.6rem 0;
+            }
+            .logo-text {
+                font-size: 1rem;
+            }
+            .logo-icon {
+                width: 1.6rem;
+                height: 1.6rem;
+                font-size: 0.7rem;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .hero p {
+                font-size: 0.85rem;
+            }
+            .search-wrap input {
+                padding: 0.7rem 1rem 0.7rem 2.8rem;
+                font-size: 0.9rem;
+            }
+            .search-wrap .icon {
+                left: 1rem;
+                font-size: 0.85rem;
+            }
+            .area-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 0.6rem;
+            }
+            .area-card {
+                padding: 1rem 0.8rem;
+                min-height: 60px;
+                border-radius: 1.2rem;
+            }
+            .location-3d {
+                font-size: 1.2rem;
+                width: 1.8rem;
+                height: 1.8rem;
+            }
+            .loc-pulse {
+                width: 2.2rem;
+                height: 2.2rem;
+            }
+            .location-3d .loc-icon {
+                font-size: 1.2rem;
+            }
+            .card-info .name {
+                font-size: 0.85rem;
+            }
+            .card-info .pin-code {
+                font-size: 0.55rem;
+            }
+            .card-info .badge {
+                font-size: 0.45rem;
+                padding: 0.05rem 0.3rem;
+            }
+            .card-arrow {
+                font-size: 0.8rem;
+            }
+            .city-item {
+                font-size: clamp(1.6rem, 12vw, 2.6rem);
+            }
+            .particle,
+            .gps-float {
+                display: none;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .area-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.5rem;
+            }
+            .area-card {
+                padding: 0.8rem 0.6rem;
+                min-height: 52px;
+                border-radius: 1rem;
+            }
+            .card-info .name {
+                font-size: 0.78rem;
+            }
+            .card-info .pin-code {
+                font-size: 0.5rem;
+            }
+            .location-3d {
+                font-size: 1rem;
+                width: 1.6rem;
+                height: 1.6rem;
+            }
+            .location-3d .loc-icon {
+                font-size: 1rem;
+            }
+            .loc-pulse {
+                width: 1.8rem;
+                height: 1.8rem;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .area-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 1.5rem;
+            }
+            .area-card {
+                padding: 1.8rem 1.5rem;
+                min-height: 96px;
+                border-radius: 2rem;
+            }
+            .location-3d {
+                font-size: 2.2rem;
+                width: 3rem;
+                height: 3rem;
+            }
+            .location-3d .loc-icon {
+                font-size: 2.2rem;
+            }
+            .loc-pulse {
+                width: 3.6rem;
+                height: 3.6rem;
+            }
+            .card-info .name {
+                font-size: 1.15rem;
+            }
+        }
+
+        /* ============================================================
+           DARK MODE
+        ============================================================ */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #0f172a;
+                background: radial-gradient(ellipse at 10% 20%, rgba(249, 115, 22, 0.06) 0%, transparent 50%),
+                    radial-gradient(ellipse at 90% 80%, rgba(18, 59, 122, 0.06) 0%, transparent 50%),
+                    #0f172a;
+            }
+
+            .navbar {
+                background: rgba(15, 23, 42, 0.6);
+                border-bottom-color: rgba(51, 65, 85, 0.2);
+            }
+            .logo-text {
+                background: linear-gradient(135deg, #f1f5f9 40%, #f97316 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            .nav-icon {
+                color: #94a3b8;
+            }
+            .nav-icon:hover {
+                color: #f1f5f9;
+                background: rgba(255, 255, 255, 0.04);
+            }
+
+            .hero h1 {
+                color: #f1f5f9;
+            }
+            .hero p {
+                color: #94a3b8;
+            }
+
+            .search-wrap input {
+                background: rgba(15, 23, 42, 0.4);
+                border-color: #334155;
+                color: #f1f5f9;
+            }
+            .search-wrap input:focus {
+                background: #1e293b;
+                border-color: #f97316;
+                box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.12);
+            }
+            .search-wrap input::placeholder {
+                color: #64748b;
+            }
+
+            .area-card {
+                background: rgba(30, 41, 59, 0.4);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                border-color: rgba(51, 65, 85, 0.2);
+            }
+            .area-card:hover {
+                border-color: rgba(249, 115, 22, 0.15);
+                box-shadow: 0 20px 50px -10px rgba(249, 115, 22, 0.08);
+            }
+            .card-info .name {
+                color: #f1f5f9;
+            }
+            .card-info .pin-code {
+                color: #64748b;
+            }
+            .card-info .badge {
+                color: #f97316;
+                background: rgba(249, 115, 22, 0.12);
+            }
+            .card-arrow {
+                color: #64748b;
+            }
+            .area-card:hover .card-arrow {
+                color: #f97316;
+            }
+
+            .location-3d .loc-icon i {
+                background: linear-gradient(145deg, #fb923c, #f97316);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            .area-card[data-slug="navsari"] .loc-icon i {
+                background: linear-gradient(145deg, #60a5fa, #2563eb);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            .area-card[data-slug="surat"] .loc-icon i {
+                background: linear-gradient(145deg, #a78bfa, #7c3aed);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            .area-card[data-slug="bardoli"] .loc-icon i {
+                background: linear-gradient(145deg, #34d399, #059669);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            .area-card[data-slug="adajan"] .loc-icon i {
+                background: linear-gradient(145deg, #f87171, #dc2626);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            .area-card[data-slug="vesu"] .loc-icon i {
+                background: linear-gradient(145deg, #a78bfa, #7c3aed);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            .loc-pulse {
+                background: radial-gradient(circle, rgba(249, 115, 22, 0.08), transparent 70%);
+            }
+            .area-card[data-slug="navsari"] .loc-pulse {
+                background: radial-gradient(circle, rgba(18, 59, 122, 0.08), transparent 70%);
+            }
+            .area-card[data-slug="surat"] .loc-pulse {
+                background: radial-gradient(circle, rgba(139, 92, 246, 0.08), transparent 70%);
+            }
+            .area-card[data-slug="bardoli"] .loc-pulse {
+                background: radial-gradient(circle, rgba(5, 150, 105, 0.08), transparent 70%);
+            }
+            .area-card[data-slug="adajan"] .loc-pulse {
+                background: radial-gradient(circle, rgba(220, 38, 38, 0.08), transparent 70%);
+            }
+            .area-card[data-slug="vesu"] .loc-pulse {
+                background: radial-gradient(circle, rgba(124, 58, 237, 0.08), transparent 70%);
+            }
+
+            .city-item i {
+                background: linear-gradient(145deg, #94a3b8, #64748b);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            .city-item .orange {
+                background: linear-gradient(145deg, #f97316, #fb923c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            .city-item .blue {
+                background: linear-gradient(145deg, #60a5fa, #2563eb);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            .particle {
+                opacity: 0.3;
+            }
+            .gps-float {
+                opacity: 0.3;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+            .area-card:active {
+                transform: scale(0.98);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+    CINEMATIC PARTICLES
+    ============================================================ -->
+    <div class="particle particle-1"></div>
+    <div class="particle particle-2"></div>
+    <div class="particle particle-3"></div>
+    <div class="particle particle-4"></div>
+
+    <div class="gps-float gps-1"><i class="fas fa-map-pin"></i></div>
+    <div class="gps-float gps-2"><i class="fas fa-location-dot"></i></div>
+    <div class="gps-float gps-3"><i class="fas fa-map-pin"></i></div>
+    <div class="gps-float gps-4"><i class="fas fa-location-dot"></i></div>
+
+    <!-- ============================================================
+    MAIN CONTAINER
+    ============================================================ -->
+    <div class="container">
+
+        <!-- NAVIGATION -->
+        <nav class="navbar">
+            <a href="#" class="logo">
+                
+                <span class="logo-text"><img src="setulogo.png"width="120"height="120"></span>
+            </a>
+            <div class="nav-right">
+                <span class="nav-icon"><i class="fas fa-search"></i></span>
+                <span class="nav-icon"><i class="fas fa-user-circle"></i></span>
+            </div>
+        </nav>
+
+        <!-- HERO -->
+        <section class="hero">
+            <h1>Choose Your <span>Delivery</span> Area</h1>
+            <p>Select your city or local area to discover trusted nearby businesses and experience lightning-fast hyperlocal delivery.</p>
+
+            <!-- 3D City Illustration -->
+            <div class="city-3d">
+                <span class="city-item"><i class="fas fa-city"></i></span>
+                <span class="city-item"><i class="fas fa-store orange"></i></span>
+                <span class="city-item"><i class="fas fa-road blue"></i></span>
+                <span class="city-item"><i class="fas fa-truck-fast orange"></i></span>
+                <span class="city-item"><i class="fas fa-location-dot blue"></i></span>
+                <span class="city-item"><i class="fas fa-motorcycle orange"></i></span>
+            </div>
+
+            <!-- Search -->
+            <div class="search-wrap">
+                <span class="icon"><i class="fas fa-search"></i></span>
+                <input type="text" id="areaSearch" placeholder="Search your area..." autocomplete="off" />
+            </div>
+        </section>
+
+        <!-- AREA GRID -->
+        <div class="area-grid" id="areaGrid">
+            <!-- Rendered by JavaScript -->
+        </div>
+
+    </div>
+
+    <!-- ============================================================
+    SCRIPT: Area Data with 3D Location Icons + PIN Codes + Links
+    ============================================================ -->
+    <script>
+        // ============================================================
+        // AREA DATA — Add unlimited areas here
+        // Each area gets a unique 3D location icon + PIN code + LINK
+        // ============================================================
+        const areas = [
+            { 
+                name: 'Sachin', 
+                slug: 'sachin', 
+                icon: 'fa-city', 
+                pin: '394230',
+                link: 'localsachin.html'  // 👈 Add your link here
+            },
+            { 
+                name: 'Navsari', 
+                slug: 'navsari', 
+                icon: 'fa-landmark', 
+                pin: '396450',
+                link: 'localnavsari.html'
+            },
+            { 
+                name: 'Surat', 
+                slug: 'surat', 
+                icon: 'fa-building', 
+                pin: '395001',
+                link: '/locations/surat'
+            },
+            { 
+                name: 'Bardoli', 
+                slug: 'bardoli', 
+                icon: 'fa-temple', 
+                pin: '394601',
+                link: '/locations/bardoli'
+            },
+            { 
+                name: 'Adajan', 
+                slug: 'adajan', 
+                icon: 'fa-store', 
+                pin: '395009',
+                link: '/locations/adajan'
+            },
+            { 
+                name: 'Vesu', 
+                slug: 'vesu', 
+                icon: 'fa-house-chimney', 
+                pin: '395007',
+                link: '/locations/vesu'
+            },
+            { 
+                name: 'Piplod', 
+                slug: 'piplod', 
+                icon: 'fa-tree', 
+                pin: '395007',
+                link: '/locations/piplod'
+            },
+            { 
+                name: 'Katargam', 
+                slug: 'katargam', 
+                icon: 'fa-warehouse', 
+                pin: '395004',
+                link: '/locations/katargam'
+            },
+            { 
+                name: 'Dumas', 
+                slug: 'dumas', 
+                icon: 'fa-umbrella-beach', 
+                pin: '395007',
+                link: '/locations/dumas'
+            },
+            { 
+                name: 'Udhna', 
+                slug: 'udhna', 
+                icon: 'fa-industry', 
+                pin: '394210',
+                link: '/locations/udhna'
+            },
+            { 
+                name: 'Varachha', 
+                slug: 'varachha', 
+                icon: 'fa-shop', 
+                pin: '395006',
+                link: '/locations/varachha'
+            },
+            { 
+                name: 'Palanpur', 
+                slug: 'palanpur', 
+                icon: 'fa-mosque', 
+                pin: '385001',
+                link: '/locations/palanpur'
+            },
+            { 
+                name: 'Chalthan', 
+                slug: 'chalthan', 
+                icon: 'fa-tractor', 
+                pin: '394305',
+                link: '/locations/chalthan'
+            },
+            { 
+                name: 'Mota Varachha', 
+                slug: 'mota-varachha', 
+                icon: 'fa-people-group', 
+                pin: '395006',
+                link: '/locations/mota-varachha'
+            },
+            { 
+                name: 'Sagrampura', 
+                slug: 'sagrampura', 
+                icon: 'fa-route', 
+                pin: '395002',
+                link: '/locations/sagrampura'
+            },
+            { 
+                name: 'Athwa', 
+                slug: 'athwa', 
+                icon: 'fa-mountain', 
+                pin: '395001',
+                link: '/locations/athwa'
+            },
+            { 
+                name: 'Sarthana', 
+                slug: 'sarthana', 
+                icon: 'fa-bridge', 
+                pin: '395006',
+                link: '/locations/sarthana'
+            },
+            { 
+                name: 'Magob', 
+                slug: 'magob', 
+                icon: 'fa-water', 
+                pin: '394210',
+                link: '/locations/magob'
+            },
+            { 
+                name: 'Ghod Dod Road', 
+                slug: 'ghod-dod-road', 
+                icon: 'fa-road', 
+                pin: '395001',
+                link: '/locations/ghod-dod-road'
+            },
+            { 
+                name: 'Rander', 
+                slug: 'rander', 
+                icon: 'fa-ferry', 
+                pin: '395005',
+                link: '/locations/rander'
+            },
+        ];
+
+        // ============================================================
+        // RENDER CARDS
+        // ============================================================
+        const grid = document.getElementById('areaGrid');
+        const searchInput = document.getElementById('areaSearch');
+
+        function renderAreas(filter = '') {
+            const filtered = areas.filter(a =>
+                a.name.toLowerCase().includes(filter.toLowerCase())
+            );
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column:1/-1; text-align:center; padding:3rem 1rem; color:#94a3b8; font-size:1.1rem;">
+                        <i class="fas fa-map-pin" style="font-size:2.5rem;display:block;margin-bottom:0.5rem;color:#f97316;opacity:0.2;"></i>
+                        No areas found. Try a different search.
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(area => `
+                <a href="${area.link}" class="area-card" data-slug="${area.slug}" data-link="${area.link}">
+                    <div class="card-left">
+                        <div class="location-3d">
+                            <span class="loc-pulse"></span>
+                            <span class="loc-icon"><i class="fas ${area.icon}"></i></span>
+                        </div>
+                        <div class="card-info">
+                            <span class="name">${area.name}</span>
+                            <span class="pin-code">PIN ${area.pin}</span>
+                            <span class="badge"><i class="fas fa-circle"></i> Live Delivery</span>
+                        </div>
+                    </div>
+                    <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+                </a>
+            `).join('');
+
+            // Click handlers are now handled by the <a> tag with href
+            // The link will navigate to the specified URL
+            console.log('✅ Area cards rendered with links.');
+        }
+
+        // ============================================================
+        // SEARCH
+        // ============================================================
+        searchInput.addEventListener('input', function() {
+            renderAreas(this.value);
+        });
+
+        // Search icon focuses input
+        document.querySelector('.nav-icon:first-child').addEventListener('click', function() {
+            searchInput.focus();
+        });
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        renderAreas();
+
+        console.log('🚀 ShopSetu 3D Area Selection ready with PIN codes and links.');
+        console.log(`📍 ${areas.length} areas loaded.`);
+        console.log('💡 To change a link, edit the "link" property in the "areas" array.');
+        console.log('💡 Example: { name: "Sachin", link: "https://mysite.com/sachin" }');
+    </script>
+
+</body>
+</html>
